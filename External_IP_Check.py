@@ -14,7 +14,8 @@ ext_ip = get('https://api.ipify.org').text
 
 # Check whether the two IP addresses match
 if ext_ip != dns_ip:
-    print('Nope')
+    client.update_ip(ext_ip, domains=['luigi-marino.com'])
+    
 
 # Test Outputs
 # print(client.get_domains())
