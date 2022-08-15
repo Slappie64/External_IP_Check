@@ -1,5 +1,5 @@
 # Imports
-from requests import get
+from requests import get, put
 import secret
 import json
 
@@ -22,13 +22,17 @@ dns_raw = dns_raw.replace(']','')
 dns_json = json.loads(dns_raw)
 
 # Get the current name from the json data
-current_ip = api_json['data']
+current_ip = dns_json['data']
 
 # Check current external IP against GoDaddy DNS Records
-if ip_check != current_ip:
-    print('Nope')
+if ip_check == current_ip:
+    try:
+        update_dns = put('https://api.godaddy.com/v1/domains/luigi-marino.com/records/A/data', headers=headers, data={'data':ip_check})
+    except Exception as ex:
+        print('Something went wrong: ' + ex)
 else:
     print('Yep')
+
 
     
 # Test Prints
