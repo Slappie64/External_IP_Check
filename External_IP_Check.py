@@ -27,16 +27,17 @@ current_ip = dns_json['data']
 # Check current external IP against GoDaddy DNS Records
 if ip_check == current_ip:
     try:
-        update_dns = put('https://api.godaddy.com/v1/domains/luigi-marino.com/records/A/data', headers=headers, data={'data':ip_check})
+        update_dns = put(url, params = {'domain':'luigi-marino.com'}, headers=headers, field={'data':'1.1.1.1'})
+        print(update_dns.text)
     except Exception as ex:
-        print('Something went wrong: ' + ex)
+        print('Something went wrong: ', ex)
 else:
     print('Yep')
 
 
     
 # Test Prints
-#print(ip_check)
+print('External IP: '+ip_check)
 #print(secret.api_key)
 #print(test)
-#print(current_ip)
+print('DNS IP: '+current_ip)
